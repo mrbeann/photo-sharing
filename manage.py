@@ -12,6 +12,8 @@ from flask.ext.login import login_user, logout_user, login_required, \
 from werkzeug import secure_filename
 import os
 from forms import LoginForm, RegistrationForm
+import time
+ISOTIMEFORMAT='%Y%m%d%H%M%S'
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
@@ -103,8 +105,8 @@ def personal_upload_file():
             filename = secure_filename(file.filename)
             #filename=file.filename
             #file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-            file.save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], filename))
-            photo = Photo(address=os.path.join('uploads/', filename),
+            file.save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(time.strftime(ISOTIMEFORMAT))+filename))
+            photo = Photo(address=os.path.join('uploads/', str(time.strftime(ISOTIMEFORMAT))+filename),
                     name=title,
                     content =  content,
                     time = None,
@@ -129,8 +131,8 @@ def class_upload_file():
             filename = secure_filename(file.filename)
             #filename=file.filename
             #file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-            file.save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], filename))
-            photo = Photo(address=os.path.join('uploads/', filename),
+            file.save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(time.strftime(ISOTIMEFORMAT))+filename))
+            photo = Photo(address=os.path.join('uploads/', str(time.strftime(ISOTIMEFORMAT))+filename),
                     name=title,
                     content =  content,
                     time = time,
