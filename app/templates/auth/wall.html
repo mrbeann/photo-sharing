@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}personal gllery{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>{{name.username}}'s photos</h1>
+</div>
+
+<ul>
+    <!--h3>you can just click to share it with you class</h3-->
+    {% for pic in pic_list%}
+    <img src = "{{pic}}" onclick="share()"></img><br/>
+    {% endfor%}
+</ul>
+
+
+
+<form action="/auth/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <input type="submit" value="upload" />
+</form>
+{% endblock %}
+
+
+    
+
+

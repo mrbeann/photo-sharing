@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}group gllery{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>{{group.name}}'s photos</h1>
+</div>
+
+<ul>
+    {% for pic in pic_list%}
+    <img src = "{{pic}}" ></img><br/>
+    {% endfor%}
+</ul>
+
+<form action="/auth/uploadg" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <input type="submit" value="upload" />
+</form>
+{% endblock %}
+
+
