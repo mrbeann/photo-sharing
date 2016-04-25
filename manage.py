@@ -110,7 +110,7 @@ def personal_upload_file():
             file.save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
             from PIL import Image
             img = Image.open(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
-            img.resize((400,289), Image.ANTIALIAS).save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
+            img.resize((400,400), Image.ANTIALIAS).save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
             photo = Photo(address=os.path.join('uploads/', str(Time.strftime(ISOTIMEFORMAT))+filename),
                     name=title,
                     content =  content,
