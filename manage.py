@@ -17,6 +17,7 @@ ISOTIMEFORMAT='%Y%m%d%H%M%S'
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
+
 migrate = Migrate(app, db)
 
 
@@ -105,7 +106,11 @@ def personal_upload_file():
             filename = secure_filename(file.filename)
             #filename=file.filename
             #file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
+            
             file.save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
+            from PIL import Image
+            img = Image.open(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
+            img.resize((400,289), Image.ANTIALIAS).save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
             photo = Photo(address=os.path.join('uploads/', str(Time.strftime(ISOTIMEFORMAT))+filename),
                     name=title,
                     content =  content,
@@ -132,6 +137,10 @@ def class_upload_file():
             #filename=file.filename
             #file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
             file.save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
+            from PIL import Image
+            img = Image.open(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
+            img.resize((200,200), Image.ANTIALIAS).save(os.path.join(current_app.root_path, current_app.config['UPLOAD_FOLDER'], str(Time.strftime(ISOTIMEFORMAT))+filename))
+            
             photo = Photo(address=os.path.join('uploads/', str(Time.strftime(ISOTIMEFORMAT))+filename),
                     name=title,
                     content =  content,
